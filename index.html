@@ -1,0 +1,2250 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แอพสื่อการสอน - คอมพิวเตอร์และการบำรุงรักษา</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Sarabun', sans-serif; }
+        .chapter-card { transition: all 0.3s ease; }
+        .chapter-card:hover { transform: translateY(-2px); }
+        .progress-bar { transition: width 0.5s ease; }
+        .quiz-option { transition: all 0.2s ease; }
+        .quiz-option:hover { transform: scale(1.02); }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 shadow-lg">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                    <span class="text-blue-600 text-xl">💻</span>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold">คอมพิวเตอร์และการบำรุงรักษา</h1>
+                    <p class="text-blue-100 text-sm">แอพสื่อการสอน</p>
+                </div>
+            </div>
+            <button onclick="showProgress()" class="bg-white bg-opacity-20 p-2 rounded-lg">
+                <span class="text-sm">📊</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="p-4 pb-20">
+        <!-- Welcome Section -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-gray-800 mb-3">ยินดีต้อนรับสู่หลักสูตร</h2>
+            <p class="text-gray-600 mb-4">เรียนรู้เกี่ยวกับคอมพิวเตอร์และการบำรุงรักษาผ่านบทเรียน 7 บท พร้อมแบบทดสอบ</p>
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>ความคืบหน้าโดยรวม</span>
+                    <span id="overallProgress">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div id="overallProgressBar" class="bg-blue-600 h-2 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chapters Grid -->
+        <div class="grid gap-4">
+            <!-- Chapter 1 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(1)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">1</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">พื้นฐานและการทำงานของระบบคอมพิวเตอร์</h3>
+                            <p class="text-sm text-gray-500">ทำความเข้าใจหลักการพื้นฐาน</p>
+                        </div>
+                    </div>
+                    <span id="chapter1Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter1Progress" class="bg-purple-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Chapter 2 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(2)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white font-bold">2</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">ฮาร์ดแวร์คอมพิวเตอร์</h3>
+                            <p class="text-sm text-gray-500">ศึกษาชิ้นส่วนต่างๆ ของคอมพิวเตอร์</p>
+                        </div>
+                    </div>
+                    <span id="chapter2Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter2Progress" class="bg-green-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Chapter 3 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(3)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white font-bold">3</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">การประกอบเครื่องคอมพิวเตอร์</h3>
+                            <p class="text-sm text-gray-500">เรียนรู้การประกอบคอมพิวเตอร์</p>
+                        </div>
+                    </div>
+                    <span id="chapter3Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter3Progress" class="bg-orange-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Chapter 4 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(4)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center text-white font-bold">4</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">การติดตั้งระบบปฏิบัติการ</h3>
+                            <p class="text-sm text-gray-500">OS, ไดฟ์เวอร์ และโปรแกรมประยุกต์</p>
+                        </div>
+                    </div>
+                    <span id="chapter4Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter4Progress" class="bg-red-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Chapter 5 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(5)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center text-white font-bold">5</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">อุปกรณ์ต่อพ่วง</h3>
+                            <p class="text-sm text-gray-500">หลักการทำงานและวิธีเชื่อมต่อ</p>
+                        </div>
+                    </div>
+                    <span id="chapter5Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter5Progress" class="bg-teal-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Chapter 6 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(6)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">6</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">การแก้ไขปัญหาคอมพิวเตอร์</h3>
+                            <p class="text-sm text-gray-500">วิธีการวินิจฉัยและแก้ไขปัญหา</p>
+                        </div>
+                    </div>
+                    <span id="chapter6Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter6Progress" class="bg-indigo-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Chapter 7 -->
+            <div class="chapter-card bg-white rounded-xl shadow-md p-5 cursor-pointer" onclick="openChapter(7)">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center text-white font-bold">7</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800">การบำรุงรักษาคอมพิวเตอร์</h3>
+                            <p class="text-sm text-gray-500">การดูแลรักษาเพื่อประสิทธิภาพ</p>
+                        </div>
+                    </div>
+                    <span id="chapter7Status" class="text-gray-400">📖</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-1.5">
+                    <div id="chapter7Progress" class="bg-pink-500 h-1.5 rounded-full progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter Content View -->
+    <div id="chapterView" class="hidden fixed inset-0 bg-white z-50 overflow-y-auto fade-in">
+        <!-- Chapter Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-4 sticky top-0 z-10">
+            <div class="flex items-center justify-between">
+                <button onclick="closeChapter()" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors">
+                    <span class="text-xl">←</span>
+                </button>
+                <div class="text-center flex-1">
+                    <h2 id="chapterTitle" class="font-bold text-lg"></h2>
+                    <p id="chapterSubtitle" class="text-blue-100 text-sm"></p>
+                </div>
+                <button onclick="toggleBookmark()" id="bookmarkBtn" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors">
+                    <span class="text-xl">🔖</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chapter Content -->
+        <div id="chapterContent" class="p-4 pb-20">
+            <!-- Content will be loaded here -->
+        </div>
+
+        <!-- Chapter Navigation -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg">
+            <div class="flex justify-between items-center">
+                <button onclick="showQuiz()" id="quizBtn" class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                    ทำแบบทดสอบ 📝
+                </button>
+                <div class="text-sm text-gray-500">
+                    <span id="readingProgress">0%</span> อ่านแล้ว
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz View -->
+    <div id="quizView" class="hidden fixed inset-0 bg-white z-50 overflow-y-auto fade-in">
+        <!-- Quiz Header -->
+        <div class="bg-gradient-to-r from-green-600 to-emerald-700 text-white p-4 sticky top-0 z-10">
+            <div class="flex items-center justify-between">
+                <button onclick="closeQuiz()" class="p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors">
+                    <span class="text-xl">←</span>
+                </button>
+                <div class="text-center flex-1">
+                    <h2 id="quizTitle" class="font-bold text-lg">แบบทดสอบ</h2>
+                    <p class="text-green-100 text-sm">ตอบคำถาม 5 ข้อ</p>
+                </div>
+                <div class="text-sm">
+                    <span id="quizProgress">1/5</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Content -->
+        <div id="quizContent" class="p-4 pb-20">
+            <!-- Quiz questions will be loaded here -->
+        </div>
+
+        <!-- Quiz Navigation -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 shadow-lg">
+            <div class="flex justify-between">
+                <button onclick="previousQuestion()" id="prevBtn" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg disabled:opacity-50 transition-colors" disabled>
+                    ← ก่อนหน้า
+                </button>
+                <button onclick="nextQuestion()" id="nextBtn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    ถัดไป →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Result Modal -->
+    <div id="quizResultModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-60 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <div class="text-center">
+                <div id="resultIcon" class="text-6xl mb-4">🎉</div>
+                <h3 class="text-xl font-bold mb-2" id="resultTitle">ยินดีด้วย!</h3>
+                <p class="text-gray-600 mb-4" id="resultMessage">คุณทำคะแนนได้ 4/5 คะแนน</p>
+                <div class="flex space-x-3">
+                    <button onclick="retakeQuiz()" class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors">
+                        ทำใหม่
+                    </button>
+                    <button onclick="closeQuizResult()" class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                        ปิด
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Modal -->
+    <div id="progressModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">ความคืบหน้าการเรียน</h3>
+                <button onclick="closeProgress()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <div id="progressDetails">
+                <!-- Progress details will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // App State
+        let currentChapter = 0;
+        let currentQuestion = 0;
+        let quizAnswers = [];
+        let chapterProgress = JSON.parse(localStorage.getItem('chapterProgress') || '{}');
+        let quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+
+        // Chapter Data
+        const chapters = {
+            1: {
+                title: "พื้นฐานและการทำงานของระบบคอมพิวเตอร์",
+                subtitle: "บทที่ 1",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-purple-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-purple-800 mb-4">🖥️ ความหมายของคอมพิวเตอร์</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                คอมพิวเตอร์ (Computer) คือ เครื่องจักรอิเล็กทรอนิกส์ที่สามารถรับข้อมูล ประมวลผล และแสดงผลลัพธ์ได้อย่างอัตโนมัติ ตามชุดคำสั่งที่กำหนดไว้ล่วงหน้า
+            </p>
+
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-semibold mb-3 text-purple-700">คุณสมบัติสำคัญของคอมพิวเตอร์</h4>
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-purple-50 rounded-lg">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-purple-600">⚡</span>
+                                            <h5 class="font-semibold text-sm">ความเร็วสูง (Speed)</h5>
+                                        </div>
+                                        <p class="text-xs text-gray-600 ml-6">คอมพิวเตอร์สามารถประมวลผลข้อมูลได้หลายล้านคำสั่งต่อวินาที วัดเป็นหน่วย GHz (Gigahertz) ทำให้สามารถทำงานที่ซับซ้อนได้อย่างรวดเร็ว</p>
+                                    </div>
+                                    <div class="p-3 bg-purple-50 rounded-lg">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-purple-600">🎯</span>
+                                            <h5 class="font-semibold text-sm">ความแม่นยำ (Accuracy)</h5>
+                                        </div>
+                                        <p class="text-xs text-gray-600 ml-6">คอมพิวเตอร์ทำงานตามคำสั่งที่กำหนดไว้อย่างแม่นยำ 100% ไม่มีข้อผิดพลาดจากการเหนื่อยล้าหรือความประมาท เว้นแต่จะมีข้อผิดพลาดจากฮาร์ดแวร์หรือซอฟต์แวร์</p>
+                                    </div>
+                                    <div class="p-3 bg-purple-50 rounded-lg">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-purple-600">💾</span>
+                                            <h5 class="font-semibold text-sm">ความจุในการเก็บข้อมูล (Storage)</h5>
+                                        </div>
+                                        <p class="text-xs text-gray-600 ml-6">สามารถเก็บข้อมูลได้ปริมาณมหาศาล ตั้งแต่ GB ไปจนถึง TB และสามารถเข้าถึงข้อมูลได้อย่างรวดเร็ว พร้อมทั้งสามารถค้นหาข้อมูลได้อย่างมีประสิทธิภาพ</p>
+                                    </div>
+                                    <div class="p-3 bg-purple-50 rounded-lg">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-purple-600">🔄</span>
+                                            <h5 class="font-semibold text-sm">ความทนทาน (Diligence)</h5>
+                                        </div>
+                                        <p class="text-xs text-gray-600 ml-6">สามารถทำงานต่อเนื่องได้ 24 ชั่วโมง 7 วันต่อสัปดาห์ โดยไม่เหนื่อยล้าหรือลดประสิทธิภาพ ตราบใดที่ได้รับการบำรุงรักษาที่เหมาะสม</p>
+                                    </div>
+                                    <div class="p-3 bg-purple-50 rounded-lg">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-purple-600">🤖</span>
+                                            <h5 class="font-semibold text-sm">การทำงานอัตโนมัติ (Automation)</h5>
+                                        </div>
+                                        <p class="text-xs text-gray-600 ml-6">เมื่อได้รับคำสั่งแล้ว สามารถทำงานได้อย่างอัตโนมัติโดยไม่ต้องมีการควบคุมจากมนุษย์ตลอดเวลา ทำให้ประหยัดเวลาและแรงงาน</p>
+                                    </div>
+                                    <div class="p-3 bg-purple-50 rounded-lg">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="text-purple-600">🔢</span>
+                                            <h5 class="font-semibold text-sm">ความสามารถในการคำนวณ (Versatility)</h5>
+                                        </div>
+                                        <p class="text-xs text-gray-600 ml-6">สามารถทำงานได้หลากหลาย ตั้งแต่การคำนวณทางคณิตศาสตร์ การประมวลผลข้อความ ภาพ เสียง วิดีโอ และการควบคุมระบบต่างๆ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">⚙️ หลักการทำงานของคอมพิวเตอร์ (IPO Model)</h3>
+                            <p class="text-gray-700 mb-4">คอมพิวเตอร์ทำงานตามหลัก IPO (Input-Process-Output) พร้อมระบบจัดเก็บข้อมูล ซึ่งเป็นรูปแบบการทำงานพื้นฐานของระบบคอมพิวเตอร์ทุกประเภท</p>
+                            
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700 mb-2">1. Input (การรับข้อมูล)</h4>
+                                    <p class="text-gray-600 text-sm mb-3">การนำข้อมูลเข้าสู่ระบบคอมพิวเตอร์ผ่านอุปกรณ์ต่างๆ เพื่อให้คอมพิวเตอร์สามารถประมวลผลได้</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-blue-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-blue-700 mb-2">อุปกรณ์ Input หลัก:</h5>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-blue-200 px-2 py-1 rounded">⌨️ Keyboard</span>
+                                                    <span class="text-gray-600">พิมพ์ข้อความและคำสั่ง</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-blue-200 px-2 py-1 rounded">🖱️ Mouse</span>
+                                                    <span class="text-gray-600">ชี้และคลิกเลือก</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-blue-200 px-2 py-1 rounded">🎤 Microphone</span>
+                                                    <span class="text-gray-600">บันทึกเสียง</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-blue-200 px-2 py-1 rounded">📷 Camera</span>
+                                                    <span class="text-gray-600">บันทึกภาพและวิดีโอ</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-blue-200 px-2 py-1 rounded">📄 Scanner</span>
+                                                    <span class="text-gray-600">สแกนเอกสารและภาพ</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-blue-200 px-2 py-1 rounded">📱 Touchscreen</span>
+                                                    <span class="text-gray-600">สัมผัสและควบคุม</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-blue-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-blue-700 mb-2">ประเภทของข้อมูล Input:</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• <strong>ข้อความ (Text):</strong> ตัวอักษร ตัวเลข สัญลักษณ์</li>
+                                                <li>• <strong>ภาพ (Image):</strong> รูปภาพ กราฟิก ไดอะแกรม</li>
+                                                <li>• <strong>เสียง (Audio):</strong> เสียงพูด เพลง เสียงต่างๆ</li>
+                                                <li>• <strong>วิดีโอ (Video):</strong> ภาพเคลื่อนไหว</li>
+                                                <li>• <strong>คำสั่ง (Commands):</strong> คำสั่งควบคุมการทำงาน</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                    <h4 class="font-semibold text-green-700 mb-2">2. Process (การประมวลผล)</h4>
+                                    <p class="text-gray-600 text-sm mb-3">CPU (Central Processing Unit) ทำหน้าที่ประมวลผลข้อมูลที่ได้รับจาก Input ตามคำสั่งที่กำหนดไว้ในโปรแกรม</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-green-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-green-700 mb-2">วงจรการประมวลผล (Instruction Cycle):</h5>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center space-x-3 p-2 bg-white rounded">
+                                                    <span class="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                                                    <div>
+                                                        <h6 class="font-semibold text-xs">Fetch (ดึงคำสั่ง)</h6>
+                                                        <p class="text-xs text-gray-600">ดึงคำสั่งจากหน่วยความจำมาที่ CPU</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-3 p-2 bg-white rounded">
+                                                    <span class="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                                                    <div>
+                                                        <h6 class="font-semibold text-xs">Decode (ถอดรหัส)</h6>
+                                                        <p class="text-xs text-gray-600">แปลความหมายของคำสั่งให้ CPU เข้าใจ</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-3 p-2 bg-white rounded">
+                                                    <span class="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                                                    <div>
+                                                        <h6 class="font-semibold text-xs">Execute (ประมวลผล)</h6>
+                                                        <p class="text-xs text-gray-600">ดำเนินการตามคำสั่งที่ถอดรหัสแล้ว</p>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-center space-x-3 p-2 bg-white rounded">
+                                                    <span class="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                                                    <div>
+                                                        <h6 class="font-semibold text-xs">Store (เก็บผลลัพธ์)</h6>
+                                                        <p class="text-xs text-gray-600">เก็บผลลัพธ์ลงในหน่วยความจำหรือ Register</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-green-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-green-700 mb-2">ประเภทการประมวลผล:</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• <strong>การคำนวณทางคณิตศาสตร์:</strong> บวก ลบ คูณ หาร</li>
+                                                <li>• <strong>การเปรียบเทียบ:</strong> เท่ากับ มากกว่า น้อยกว่า</li>
+                                                <li>• <strong>การประมวลผลตรรกะ:</strong> AND, OR, NOT</li>
+                                                <li>• <strong>การจัดการข้อมูล:</strong> เรียงลำดับ ค้นหา จัดกลุ่ม</li>
+                                                <li>• <strong>การควบคุมการทำงาน:</strong> ตัดสินใจ วนซ้ำ กระโดดไปคำสั่งอื่น</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500">
+                                    <h4 class="font-semibold text-orange-700 mb-2">3. Output (การแสดงผล)</h4>
+                                    <p class="text-gray-600 text-sm mb-3">นำผลลัพธ์ที่ได้จากการประมวลผลออกมาในรูปแบบที่มนุษย์เข้าใจได้ผ่านอุปกรณ์ต่างๆ</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-orange-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-orange-700 mb-2">อุปกรณ์ Output หลัก:</h5>
+                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-orange-200 px-2 py-1 rounded">🖥️ Monitor</span>
+                                                    <span class="text-gray-600">แสดงภาพและข้อความ</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-orange-200 px-2 py-1 rounded">🖨️ Printer</span>
+                                                    <span class="text-gray-600">พิมพ์เอกสารบนกระดาษ</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-orange-200 px-2 py-1 rounded">🔊 Speaker</span>
+                                                    <span class="text-gray-600">เล่นเสียงและเพลง</span>
+                                                </div>
+                                                <div class="flex items-center space-x-2">
+                                                    <span class="bg-orange-200 px-2 py-1 rounded">📽️ Projector</span>
+                                                    <span class="text-gray-600">ฉายภาพขนาดใหญ่</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-orange-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-orange-700 mb-2">รูปแบบ Output:</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• <strong>ข้อความ (Text):</strong> ผลลัพธ์เป็นตัวอักษรและตัวเลข</li>
+                                                <li>• <strong>กราฟิก (Graphics):</strong> ภาพ แผนภูมิ กราฟ</li>
+                                                <li>• <strong>เสียง (Audio):</strong> เสียงพูด เสียงเตือน เพลง</li>
+                                                <li>• <strong>วิดีโอ (Video):</strong> ภาพเคลื่อนไหว</li>
+                                                <li>• <strong>สัญญาณควบคุม:</strong> สัญญาณไปยังอุปกรณ์อื่น</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                                    <h4 class="font-semibold text-purple-700 mb-2">4. Storage (การจัดเก็บข้อมูล)</h4>
+                                    <p class="text-gray-600 text-sm mb-3">ระบบจัดเก็บข้อมูลและโปรแกรมในหน่วยความจำต่างๆ เพื่อให้คอมพิวเตอร์สามารถเข้าถึงและใช้งานได้</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-purple-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-purple-700 mb-2">Primary Storage (หน่วยความจำหลัก):</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">RAM (Random Access Memory)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลชั่วคราว เข้าถึงได้เร็ว</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Cache Memory</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลที่ใช้บ่อย เร็วที่สุด</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Registers</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลใน CPU เร็วมาก</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-purple-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-purple-700 mb-2">Secondary Storage (หน่วยความจำรอง):</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Hard Disk Drive (HDD)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลถาวร ความจุสูง</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Solid State Drive (SSD)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลถาวร เร็วกว่า HDD</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Optical Disc (CD/DVD)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลแบบอ่านอย่างเดียว</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-green-800 mb-4">🏗️ ระบบคอมพิวเตอร์และส่วนประกอบ</h3>
+                            <p class="text-gray-700 mb-4">ระบบคอมพิวเตอร์ประกอบด้วย 2 ส่วนหลักที่ต้องทำงานร่วมกันอย่างสมบูรณ์ เพื่อให้คอมพิวเตอร์สามารถทำงานได้ตามที่ต้องการ</p>
+                            
+                            <div class="space-y-6">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                    <h4 class="font-semibold text-green-700 mb-3 flex items-center">
+                                        <span class="mr-2">🔧</span> Hardware (ฮาร์ดแวร์)
+                                    </h4>
+                                    <p class="text-gray-600 text-sm mb-4">ส่วนประกอบทางกายภาพของคอมพิวเตอร์ที่สามารถจับต้องได้ ประกอบด้วยชิ้นส่วนอิเล็กทรอนิกส์ต่างๆ ที่ทำงานร่วมกันเพื่อประมวลผลข้อมูล</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-green-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-green-700 mb-2">🧠 Processing Unit (หน่วยประมวลผล)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">CPU (Central Processing Unit)</span>
+                                                    <span class="text-gray-600">สมองของคอมพิวเตอร์ ประมวลผลคำสั่งหลัก</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">GPU (Graphics Processing Unit)</span>
+                                                    <span class="text-gray-600">ประมวลผลกราฟิกและภาพ</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Chipset</span>
+                                                    <span class="text-gray-600">ควบคุมการสื่อสารระหว่างชิ้นส่วน</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-green-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-green-700 mb-2">💾 Memory (หน่วยความจำ)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">RAM (Random Access Memory)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลชั่วคราวขณะทำงาน</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">ROM (Read Only Memory)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลถาวร เช่น BIOS</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Cache Memory</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลที่ใช้บ่อย เพื่อเพิ่มความเร็ว</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-green-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-green-700 mb-2">💿 Storage (หน่วยเก็บข้อมูล)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">HDD (Hard Disk Drive)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลถาวรด้วยจานแม่เหล็ก</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">SSD (Solid State Drive)</span>
+                                                    <span class="text-gray-600">เก็บข้อมูลด้วยหน่วยความจำแฟลช</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Optical Drive</span>
+                                                    <span class="text-gray-600">อ่าน/เขียน CD, DVD, Blu-ray</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-green-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-green-700 mb-2">🔌 I/O Devices (อุปกรณ์รับส่งข้อมูล)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Input Devices</span>
+                                                    <span class="text-gray-600">Keyboard, Mouse, Microphone, Camera</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Output Devices</span>
+                                                    <span class="text-gray-600">Monitor, Printer, Speaker</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Communication Devices</span>
+                                                    <span class="text-gray-600">Network Card, Bluetooth, Wi-Fi</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700 mb-3 flex items-center">
+                                        <span class="mr-2">💻</span> Software (ซอฟต์แวร์)
+                                    </h4>
+                                    <p class="text-gray-600 text-sm mb-4">ชุดคำสั่งและโปรแกรมที่ควบคุมการทำงานของฮาร์ดแวร์ ทำให้คอมพิวเตอร์สามารถทำงานตามที่ผู้ใช้ต้องการ</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-blue-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-blue-700 mb-2">🔧 System Software (ซอฟต์แวร์ระบบ)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Operating System (OS)</span>
+                                                    <span class="text-gray-600">Windows, macOS, Linux - ควบคุมระบบโดยรวม</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Device Drivers</span>
+                                                    <span class="text-gray-600">ควบคุมการทำงานของฮาร์ดแวร์แต่ละชิ้น</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Utilities</span>
+                                                    <span class="text-gray-600">โปรแกรมช่วยเหลือ เช่น Antivirus, Disk Cleanup</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-blue-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-blue-700 mb-2">📱 Application Software (ซอฟต์แวร์ประยุกต์)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Office Suite</span>
+                                                    <span class="text-gray-600">Word, Excel, PowerPoint - งานสำนักงาน</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Web Browser</span>
+                                                    <span class="text-gray-600">Chrome, Firefox, Edge - เข้าถึงอินเทอร์เน็ต</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Media Player</span>
+                                                    <span class="text-gray-600">เล่นเพลง วิดีโอ และไฟล์มีเดีย</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Games</span>
+                                                    <span class="text-gray-600">เกมและความบันเทิง</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-blue-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-blue-700 mb-2">⚙️ Programming Software (ซอฟต์แวร์พัฒนาโปรแกรม)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">IDE (Integrated Development Environment)</span>
+                                                    <span class="text-gray-600">Visual Studio, Eclipse - เขียนโปรแกรม</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Compiler</span>
+                                                    <span class="text-gray-600">แปลงโค้ดเป็นภาษาเครื่อง</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Debugger</span>
+                                                    <span class="text-gray-600">ตรวจหาและแก้ไขข้อผิดพลาด</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-blue-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-blue-700 mb-2">🔌 Firmware (เฟิร์มแวร์)</h5>
+                                            <div class="space-y-2 text-xs">
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">BIOS/UEFI</span>
+                                                    <span class="text-gray-600">โปรแกรมเริ่มต้นระบบ</span>
+                                                </div>
+                                                <div class="flex justify-between items-center p-2 bg-white rounded">
+                                                    <span class="font-semibold">Embedded Software</span>
+                                                    <span class="text-gray-600">โปรแกรมในอุปกรณ์อิเล็กทรอนิกส์</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
+                                    <h4 class="font-semibold text-yellow-700 mb-3">🔗 ความสัมพันธ์ระหว่าง Hardware และ Software</h4>
+                                    <p class="text-gray-600 text-sm mb-3">Hardware และ Software ต้องทำงานร่วมกันผ่านหลายชั้น (Layers) เพื่อให้ระบบทำงานได้อย่างสมบูรณ์</p>
+                                    
+                                    <div class="space-y-3">
+                                        <div class="bg-yellow-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-yellow-700 mb-2">ลำดับชั้นการทำงาน:</h5>
+                                            <div class="space-y-2">
+                                                <div class="flex items-center justify-between p-2 bg-white rounded border">
+                                                    <span class="text-sm font-medium">👤 User (ผู้ใช้)</span>
+                                                    <span class="text-xs text-gray-600">ใช้งานโปรแกรมต่างๆ</span>
+                                                </div>
+                                                <div class="text-center text-xs text-gray-500">↕️</div>
+                                                <div class="flex items-center justify-between p-2 bg-white rounded border">
+                                                    <span class="text-sm font-medium">📱 Application Software</span>
+                                                    <span class="text-xs text-gray-600">โปรแกรมที่ผู้ใช้ทำงานด้วย</span>
+                                                </div>
+                                                <div class="text-center text-xs text-gray-500">↕️</div>
+                                                <div class="flex items-center justify-between p-2 bg-white rounded border">
+                                                    <span class="text-sm font-medium">🖥️ Operating System</span>
+                                                    <span class="text-xs text-gray-600">ควบคุมและจัดการระบบ</span>
+                                                </div>
+                                                <div class="text-center text-xs text-gray-500">↕️</div>
+                                                <div class="flex items-center justify-between p-2 bg-white rounded border">
+                                                    <span class="text-sm font-medium">🔌 Firmware/Drivers</span>
+                                                    <span class="text-xs text-gray-600">เชื่อมต่อ OS กับ Hardware</span>
+                                                </div>
+                                                <div class="text-center text-xs text-gray-500">↕️</div>
+                                                <div class="flex items-center justify-between p-2 bg-white rounded border">
+                                                    <span class="text-sm font-medium">🔧 Hardware</span>
+                                                    <span class="text-xs text-gray-600">ชิ้นส่วนทางกายภาพ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-yellow-50 p-3 rounded">
+                                            <h5 class="font-semibold text-sm text-yellow-700 mb-2">หลักการทำงานร่วมกัน:</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• <strong>Hardware</strong> ให้พื้นฐานทางกายภาพสำหรับการทำงาน</li>
+                                                <li>• <strong>Firmware</strong> ควบคุม Hardware ในระดับพื้นฐาน</li>
+                                                <li>• <strong>Operating System</strong> จัดการทรัพยากรและให้บริการ</li>
+                                                <li>• <strong>Application Software</strong> ใช้บริการของ OS เพื่อทำงาน</li>
+                                                <li>• <strong>User</strong> ใช้งาน Application เพื่อทำงานต่างๆ</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-indigo-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-indigo-800 mb-4">🔢 ระบบเลขฐานและการแทนข้อมูล</h3>
+                            <p class="text-gray-700 mb-4">คอมพิวเตอร์ใช้ระบบเลขฐาน 2 (Binary) ในการประมวลผลข้อมูล</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-indigo-700 mb-2">ระบบเลขฐานต่างๆ</h4>
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between items-center p-2 bg-indigo-50 rounded">
+                                            <span class="text-sm font-medium">Binary (ฐาน 2)</span>
+                                            <span class="text-xs">0, 1</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-indigo-50 rounded">
+                                            <span class="text-sm font-medium">Decimal (ฐาน 10)</span>
+                                            <span class="text-xs">0-9</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-indigo-50 rounded">
+                                            <span class="text-sm font-medium">Hexadecimal (ฐาน 16)</span>
+                                            <span class="text-xs">0-9, A-F</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-indigo-700 mb-2">หน่วยวัดข้อมูล</h4>
+                                    <div class="space-y-1 text-xs">
+                                        <div class="flex justify-between">
+                                            <span>1 Bit</span>
+                                            <span>0 หรือ 1</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>1 Byte</span>
+                                            <span>8 Bits</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>1 KB</span>
+                                            <span>1,024 Bytes</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>1 MB</span>
+                                            <span>1,024 KB</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>1 GB</span>
+                                            <span>1,024 MB</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>1 TB</span>
+                                            <span>1,024 GB</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-4">💡 สรุปสำคัญและการประยุกต์ใช้</h3>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-yellow-700 mb-2">หลักการสำคัญ</h4>
+                                        <ul class="space-y-2 text-gray-700 text-sm">
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>คอมพิวเตอร์ทำงานตามหลัก IPO + Storage</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>Hardware และ Software ต้องทำงานร่วมกัน</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>ใช้ระบบ Binary ในการประมวลผล</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>มีความเร็ว แม่นยำ และเชื่อถือได้</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-yellow-700 mb-2">การประยุกต์ใช้</h4>
+                                        <ul class="space-y-2 text-gray-700 text-sm">
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>การศึกษาและการทำงาน</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>การสื่อสารและบันเทิง</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>การควบคุมและอัตโนมัติ</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="text-yellow-600">•</span>
+                                                <span>การวิจัยและพัฒนา</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "คอมพิวเตอร์ทำงานตามหลักการใด?",
+                        options: ["Input → Process → Output → Storage", "Process → Input → Storage → Output", "Storage → Input → Process → Output", "Output → Input → Process → Storage"],
+                        correct: 0
+                    },
+                    {
+                        question: "ส่วนใดของคอมพิวเตอร์ที่จับต้องได้?",
+                        options: ["Software", "Hardware", "Operating System", "Application"],
+                        correct: 1
+                    },
+                    {
+                        question: "CPU มีหน้าที่หลักคืออะไร?",
+                        options: ["เก็บข้อมูล", "แสดงผล", "ประมวลผล", "รับข้อมูล"],
+                        correct: 2
+                    },
+                    {
+                        question: "ระบบปฏิบัติการจัดเป็นส่วนใดของคอมพิวเตอร์?",
+                        options: ["Hardware", "Software", "Input Device", "Output Device"],
+                        correct: 1
+                    },
+                    {
+                        question: "คุณสมบัติใดไม่ใช่ของคอมพิวเตอร์?",
+                        options: ["ความเร็วสูง", "ความแม่นยำ", "ความคิดสร้างสรรค์", "เก็บข้อมูลได้มาก"],
+                        correct: 2
+                    }
+                ]
+            },
+            2: {
+                title: "ฮาร์ดแวร์คอมพิวเตอร์",
+                subtitle: "บทที่ 2",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-green-800 mb-4">🧠 CPU (Central Processing Unit)</h3>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                CPU หรือ หน่วยประมวลผลกลาง (Central Processing Unit) ทำหน้าที่เป็น สมองของคอมพิวเตอร์ โดยรับคำสั่งจากโปรแกรมและผู้ใช้ ดำเนินการคำนวณทางคณิตศาสตร์และตรรกะ ประมวลผลข้อมูลให้กลายเป็นผลลัพธ์ และควบคุมการทำงานของอุปกรณ์ฮาร์ดแวร์อื่นๆ ทั้งหมดในระบบ เพื่อให้คอมพิวเตอร์ทำงานได้อย่างมีประสิทธิภาพ
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/1B8sMhYzs6wKCVT37Yh-hKCkLIKnaWkDO" 
+                                        alt="ภาพ CPU" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">💾 หน่วยความจำ (Memory)</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700">RAM (Random Access Memory)</h4>
+                                    <p class="text-gray-600 text-sm mb-2">RAM (Random Access Memory) ทำหน้าที่เป็นหน่วยความจำชั่วคราวความเร็วสูงสำหรับเก็บข้อมูลที่กำลังใช้งานอยู่ เพื่อให้หน่วยประมวลผลกลาง (CPU) ดึงไปประมวลผลได้ทันที โดยไม่ต้องรอจากฮาร์ดดิสก์หรือ SSD ซึ่งช้ากว่า เปรียบเสมือนพื้นที่ทำงานชั่วคราวที่ช่วยให้การเปิดแอปพลิเคชันหลายตัวพร้อมกัน, การทำงานหลายอย่างพร้อมกัน, และการใช้งานคอมพิวเตอร์โดยรวมเป็นไปอย่างราบรื่นและรวดเร็ว</p>
+                                    <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/1SQYsMBEab7QfP8fBUAwt5NWFtiVN-daN" 
+                                        alt="ภาพ RAM" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                                    <h4 class="font-semibold text-purple-700">ROM (Read Only Memory)</h4>
+                                    <p class="text-gray-600 text-sm mb-2">ROM ย่อมาจาก Read-Only Memory ทำหน้าที่เก็บข้อมูลถาวรที่ไม่เปลี่ยนแปลงและไม่สูญหายไปเมื่อไม่มีไฟเลี้ยง เช่น ระบบปฏิบัติการ (OS) และเฟิร์มแวร์ของอุปกรณ์ เพื่อให้คอมพิวเตอร์หรือสมาร์ทโฟนสามารถเริ่มทำงานได้ และเก็บคำสั่งพื้นฐานต่างๆ ที่จำเป็นต่อการทำงานของฮาร์ดแวร์/UEFI</p>
+                                    <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/1vxR40NAFFr2jgTbDSvRn7hHWROaN2Rtm" 
+                                        alt="ภาพ ROM" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-orange-800 mb-4">💿 หน่วยเก็บข้อมูล (Storage)</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-orange-700 mb-2">HDD (Hard Disk Drive)</h4>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm text-gray-600">ฮาร์ดดิสก์ไดรฟ์ (HDD) เป็นอุปกรณ์จัดเก็บข้อมูลแบบดั้งเดิมที่ประกอบด้วยดิสก์แม่เหล็กที่เรียกว่าแพลตเตอร์ที่หมุนด้วยความเร็วระหว่าง 5,400 ถึง 15,000 RPM ความเร็วในการหมุนที่เร็วขึ้นจะทำให้เข้าถึงข้อมูลได้เร็วขึ้น</span>
+                                    </div>
+                                    <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/1mU20j0O7z8X5qmG_bd0MyiCJr95eGEjQ" 
+                                        alt="ภาพ HHD" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-orange-700 mb-2">SSD (Solid State Drive)</h4>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm text-gray-600">SSD ย่อมาจาก Solid State Drive เป็นอุปกรณ์จัดเก็บข้อมูลที่ใช้ Flash Memory Chips ในการบันทึกข้อมูล คล้ายกับ แฟลชไดรฟ์ ทำให้ SSD มีความเร็วในการอ่านและเขียนข้อมูลที่สูงกว่า ฮาร์ดดิสก์ไดรฟ์ (HDD) ที่ใช้จานหมุนแบบกลไก</span>
+                                    </div>
+                                    <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/1y_LVA0V5q-jhqWsHKYK-DQ1SeAMfENkc" 
+                                        alt="ภาพ SSD" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-red-800 mb-4">🔌 Motherboard & Power Supply</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-red-700 mb-2">Motherboard</h4>
+                                    <p class="text-gray-600 text-sm mb-2">เมนบอร์ด (Mainboard หรือ Motherboard) คือแผงวงจรหลักที่ทำหน้าที่เป็นศูนย์กลางในการเชื่อมต่อและสื่อสารระหว่างส่วนประกอบฮาร์ดแวร์ต่างๆ ของคอมพิวเตอร์ ไม่ว่าจะเป็น CPU, RAM, ฮาร์ดดิสก์, การ์ดจอ รวมถึงอุปกรณ์ต่อพ่วงภายนอกอย่างคีย์บอร์ด เมาส์ และจอภาพ. นอกจากนี้ ยังมีหน้าที่จ่ายไฟให้กับอุปกรณ์ต่างๆ และควบคุมการทำงานประสานกันเพื่อให้ระบบคอมพิวเตอร์สามารถทำงานได้อย่างสมบูรณ์</p>
+                                    <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/144arTrNtSh-DMZTf0fs3R-PJuS725osh" 
+                                        alt="ภาพ MB" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-red-700 mb-2">Power Supply (PSU)</h4>
+                                    <p class="text-gray-600 text-sm mb-2">Power Supply Unit(PSU) หรือ หน่วยจ่ายไฟ คือ อุปกรณ์สำคัญภายในเครื่องคอมพิวเตอร์ที่ทำหน้าที่ แปลงไฟฟ้ากระแสสลับ (AC) จากเต้ารับในบ้าน ให้เป็น ไฟฟ้ากระแสตรง (DC) ที่มีแรงดันไฟฟ้าคงที่และเหมาะสม เพื่อจ่ายพลังงานให้กับส่วนประกอบต่างๆ ของคอมพิวเตอร์ เช่น เมนบอร์ด, CPU, การ์ดจอ, ฮาร์ดดิสก์ และส่วนประกอบอื่นๆ. นอกจากการแปลงไฟแล้ว PSU ยังมีวงจรป้องกันเพื่อช่วยปกป้องอุปกรณ์จากความเสียหายที่เกิดจากไฟกระชาก ไฟเกิน หรือการลัดวงจรได้อีกด้วย</p>
+                                    <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                    <img src="https://lh3.googleusercontent.com/d/1AbfajCpJUVIloYlaXgEzoURqRd0sWZtC" 
+                                        alt="ภาพ PSU" 
+                                        class="w-full h-full object-cover">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "CPU ย่อมาจากอะไร?",
+                        options: ["Computer Processing Unit", "Central Processing Unit", "Central Program Unit", "Computer Program Unit"],
+                        correct: 1
+                    },
+                    {
+                        question: "RAM เป็นหน่วยความจำประเภทใด?",
+                        options: ["ถาวร", "ชั่วคราว", "แบบอ่านอย่างเดียว", "แบบเขียนอย่างเดียว"],
+                        correct: 1
+                    },
+                    {
+                        question: "ข้อใดเป็นข้อดีของ SSD เมื่อเทียบกับ HDD?",
+                        options: ["ราคาถูกกว่า", "ความจุมากกว่า", "ความเร็วสูงกว่า", "เสียงดังกว่า"],
+                        correct: 2
+                    },
+                    {
+                        question: "Motherboard มีหน้าที่หลักคืออะไร?",
+                        options: ["ประมวลผลข้อมูล", "เก็บข้อมูล", "เชื่อมต่อชิ้นส่วนต่างๆ", "แสดงผลภาพ"],
+                        correct: 2
+                    },
+                    {
+                        question: "PSU ย่อมาจากอะไร?",
+                        options: ["Power System Unit", "Program Supply Unit", "Power Supply Unit", "Processing Supply Unit"],
+                        correct: 2
+                    }
+                ]
+            },
+            3: {
+                title: "การประกอบเครื่องคอมพิวเตอร์",
+                subtitle: "บทที่ 3",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-yellow-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-4">⚠️ ข้อควรระวังก่อนประกอบ</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
+                                    <h4 class="font-semibold text-yellow-700 mb-2">ความปลอดภัย</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• ปิดไฟและถอดปลั๊ก</li>
+                                        <li>• ใช้สายดินป้องกันไฟฟ้าสถิต</li>
+                                        <li>• ทำงานบนพื้นผิวที่ไม่นำไฟฟ้า</li>
+                                        <li>• เตรียมเครื่องมือที่เหมาะสม</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                                    <h4 class="font-semibold text-red-700 mb-2">เครื่องมือที่จำเป็น</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• ไขควงหัวแฉก (+)</li>
+                                        <li>• ไขควงหัวแบน (-)</li>
+                                        <li>• คีมปากแหลม</li>
+                                        <li>• สายดินป้องกันไฟฟ้าสถิต</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">🔧 ขั้นตอนการประกอบ</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <div class="flex items-center mb-2">
+                                        <span class="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                                        <h4 class="font-semibold text-blue-700">เตรียม Case และ Motherboard</h4>
+                                    </div>
+                                    <ul class="text-sm text-gray-600 ml-9 space-y-1">
+                                        <li>• ติดตั้ง I/O Shield ลงใน Case</li>
+                                        <li>• ติดตั้ง Standoff สำหรับ Motherboard</li>
+                                        <li>• ตรวจสอบตำแหน่งรูน็อต</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                    <div class="flex items-center mb-2">
+                                        <span class="bg-green-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                                        <h4 class="font-semibold text-green-700">ติดตั้ง CPU และ RAM</h4>
+                                    </div>
+                                    <ul class="text-sm text-gray-600 ml-9 space-y-1">
+                                        <li>• เปิด CPU Socket บน Motherboard</li>
+                                        <li>• วาง CPU ตามทิศทางที่ถูกต้อง</li>
+                                        <li>• ปิด Socket และล็อค</li>
+                                        <li>• ใส่ RAM ลงใน Slot ที่เหมาะสม</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500">
+                                    <div class="flex items-center mb-2">
+                                        <span class="bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
+                                        <h4 class="font-semibold text-orange-700">ติดตั้ง CPU Cooler</h4>
+                                    </div>
+                                    <ul class="text-sm text-gray-600 ml-9 space-y-1">
+                                        <li>• ทา Thermal Paste (สารประกอบระบายความร้อน) บน CPU</li>
+                                        <li>• ติดตั้ง Heat Sink/Fan</li>
+                                        <li>• เชื่อมต่อสาย Fan กับ Motherboard</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                                    <div class="flex items-center mb-2">
+                                        <span class="bg-purple-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold mr-3">4</span>
+                                        <h4 class="font-semibold text-purple-700">ติดตั้ง Storage และ Graphics Card</h4>
+                                    </div>
+                                    <ul class="text-sm text-gray-600 ml-9 space-y-1">
+                                        <li>• ติดตั้ง HDD/SSD ใน Drive Bay</li>
+                                        <li>• เสียบ Graphics Card ใน PCIe Slot</li>
+                                        <li>• ยึดด้วยสกรู</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-green-800 mb-4">🔌 การเชื่อมต่อสายไฟ</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">สายไฟหลัก</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• 24-pin ATX Power ต่อกับ (Motherboard)</li>
+                                        <li>• 4/8-pin CPU Power</li>
+                                        <li>• 6/8-pin PCIe ต่อกับ (Graphics Card)</li>
+                                        <li>• SATA Power ต่อกับ (HDD/SSD)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">สายข้อมูล</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• SATA Data Cable</li>
+                                        <li>• Front Panel Connectors</li>
+                                        <li>• USB Headers</li>
+                                        <li>• Audio Headers</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "ข้อใดควรทำก่อนเริ่มประกอบคอมพิวเตอร์?",
+                        options: ["เปิดไฟทิ้งไว้", "ปิดไฟและถอดปลั๊ก", "ใส่แบตเตอรี่", "เปิดหน้าต่าง"],
+                        correct: 1
+                    },
+                    {
+                        question: "ขั้นตอนใดควรทำก่อนติดตั้ง CPU?",
+                        options: ["ติดตั้ง RAM", "เปิด CPU Socket", "ติดตั้ง Graphics Card", "เชื่อมต่อสายไฟ"],
+                        correct: 1
+                    },
+                    {
+                        question: "Thermal Paste ใช้สำหรับอะไร?",
+                        options: ["ยึด CPU กับ Socket", "ระบายความร้อน", "ป้องกันไฟฟ้าสถิต", "เชื่อมต่อสายไฟ"],
+                        correct: 1
+                    },
+                    {
+                        question: "สายไฟ 24-pin ใช้เชื่อมต่อกับอะไร?",
+                        options: ["CPU", "Graphics Card", "Motherboard", "Hard Disk"],
+                        correct: 2
+                    },
+                    {
+                        question: "สายไฟ 6/8-pin PCIe ใช้เชื่อมต่อกับอะไร?",
+                        options: ["Hard Disk", "Graphics Card", "CD-ROM", "Keyboard"],
+                        correct: 1
+                    }
+                ]
+            },
+            4: {
+                title: "การติดตั้งระบบปฏิบัติการ โปรแกรมไดฟ์เวอร์ และโปรแกรมประยุกต์",
+                subtitle: "บทที่ 4",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">💿 การติดตั้งระบบปฏิบัติการ</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700 mb-2">การเตรียมความพร้อม</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• สำรองข้อมูลสำคัญ (ถ้ามี)</li>
+                                        <li>• เตรียม Installation Media (USB/DVD)</li>
+                                        <li>• ตรวจสอบ System Requirements</li>
+                                        <li>• เตรียม Product Key/License</li>
+                                    </ul>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-blue-700 mb-3">ขั้นตอนการติดตั้ง Windows</h4>
+                                    <div class="grid grid-cols-1 gap-3">
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                1
+                                            </span>
+                                            <span class="text-sm">เชื่อมต่อสื่อการติดตั้ง USB ที่เตรียมไว้เข้ากับคอมพิวเตอร์ของคุณ</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                2
+                                            </span>
+                                            <span class="text-sm">รีสตาร์ทคอมพิวเตอร์และเลือกบูตจากแฟลชไดร์ฟ USB</span>
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                3
+                                            </span>
+                                            <span class="text-sm">เลือกภาษา เวลา และสกุลเงิน เป็นปกติ จากนั้นคลิก "ถัดไป"</span>
+                                        </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1lGTPKjqOF3tOlibopLUjvMzQa3cGVt5i" 
+                                                alt="ภาพ win1" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                4
+                                            </span>
+                                            <span class="text-sm">คลิก "Install now.</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/11f_vt_hoqpYQ9YYRTYMQvJPhwRM5lkhj" 
+                                                alt="ภาพ win2" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                5
+                                            </span>
+                                            <span class="text-sm">หากคอมพิวเตอร์ของคุณมีระบบปฏิบัติการ ให้เลือก "ฉันไม่มีรหัสผลิตภัณฑ์" คอมพิวเตอร์จะเปิดใช้งาน Windows โดยอัตโนมัติเมื่อการติดตั้งเสร็จสมบูรณ์และเชื่อมต่อกับอินเทอร์เน็ต</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1J3QWoAHGGguXTsKFjPM_7mB9PImrU6q0" 
+                                                alt="ภาพ win3" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                6
+                                            </span>
+                                            <span class="text-sm">เลือกเวอร์ชันของระบบปฏิบัติการแล้วคลิก "Next."</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1vTO86ySnlrOQxXXcPg9F_raQ_fR9CwjF" 
+                                                alt="ภาพ win4" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                7
+                                            </span>
+                                            <span class="text-sm">หลังจากอ่านข้อกำหนดสิทธิ์การใช้งานซอฟต์แวร์ Microsoft แล้ว ให้ทำเครื่องหมายที่ "ฉันยอมรับข้อกำหนดสิทธิ์การใช้งานซอฟต์แวร์ Microsoft" แล้วคลิก "ถัดไป"</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1diVazHNNSeaKv-B-uG0BcWGSgNAFxhkE" 
+                                                alt="ภาพ win5" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                8
+                                            </span>
+                                            <span class="text-sm"> เลือก "กำหนดเอง: ติดตั้ง Windows เท่านั้น (ขั้นสูง)"</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/11H84Al6WB_kFiMyRcKP6-9cTc3X8dthp" 
+                                                alt="ภาพ win6" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                9
+                                            </span>
+                                            <span class="text-sm">ลบพาร์ติชันทั้งหมดบนดิสก์ที่คุณต้องการติดตั้ง Windows คลิกที่แต่ละพาร์ติชันแล้วคลิก "ลบ" ตามลำดับ---หมายเหตุ: การลบพาร์ติชั่นดิสก์จะลบข้อมูลทั้งหมดภายในพาร์ติชั่นนั้นด้วย</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1D-Nqd_WZfopvxvHOIIC3QLTQ3O9tY_OE" 
+                                                alt="ภาพ win7" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                9.5
+                                            </span>
+                                            <span class="text-sm">หลังจากลบพาร์ติชั่นดิสก์ทั้งหมดแล้ว ให้เลือก "พื้นที่ที่ไม่ได้จัดสรร" แล้วคลิก "ถัดไป""</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1Fr_nhaAuys0vXO5bbG7SJz3-4r9DP_4g" 
+                                                alt="ภาพ win8" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex items-center space-x-3 p-2 bg-blue-50 rounded">
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                10
+                                            </span>
+                                            <span class="text-sm">หลังจากการติดตั้งเสร็จสมบูรณ์ คอมพิวเตอร์จะรีสตาร์ทและเข้าสู่การตั้งค่า Windows ขั้นพื้นฐาน ปฏิบัติตามคำแนะนำบนหน้าจอเพื่อตั้งค่าให้เสร็จสิ้น</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/16nBOstrazefjR_QLvr-aQ7EcgGFHiDl3" 
+                                                alt="ภาพ win9" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                            <span class="bg-blue-500 text-white w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center text-sm font-bold">
+                                                11
+                                            </span>
+                                            <span class="text-sm">เมื่อการตั้งค่าเสร็จสมบูรณ์ เดสก์ท็อปจะแสดงขึ้น และการติดตั้งระบบจะเสร็จสิ้น</span>
+                                            </div>
+                                        <div class="w-full h-64 overflow-hidden rounded-lg shadow-md">
+                                                <img src="https://lh3.googleusercontent.com/d/1N8JALfZe_MMvUPFkrfRO6vu0nkmvbp-l" 
+                                                alt="ภาพ win10" 
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-green-800 mb-4">🔧 การติดตั้งไดฟ์เวอร์</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">ไดฟ์เวอร์ที่จำเป็น</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Chipset Driver</li>
+                                        <li>• Graphics Driver</li>
+                                        <li>• Audio Driver</li>
+                                        <li>• Network Driver</li>
+                                        <li>• USB Driver</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">แหล่งดาวน์โหลด</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• เว็บไซต์ผู้ผลิต Motherboard</li>
+                                        <li>• เว็บไซต์ผู้ผลิต Graphics Card</li>
+                                        <li>• Windows Update</li>
+                                        <li>• Device Manager</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white p-4 rounded-lg mt-4">
+                                <h4 class="font-semibold text-green-700 mb-2">ลำดับการติดตั้งไดฟ์เวอร์</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">1. Chipset</span>
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">2. Graphics</span>
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">3. Audio</span>
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">4. Network</span>
+                                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs">5. Others</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-purple-800 mb-4">📱 การติดตั้งโปรแกรมประยุกต์</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-purple-700 mb-2">โปรแกรมพื้นฐานที่จำเป็น</h4>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                                        <span class="bg-purple-100 p-2 rounded text-center">Web Browser</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">Antivirus</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">Office Suite</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">PDF Reader</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">Media Player</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">Archive Tool</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">Text Editor</span>
+                                        <span class="bg-purple-100 p-2 rounded text-center">System Utility</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-purple-700 mb-2">แหล่งดาวน์โหลดที่ปลอดภัย</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• เว็บไซต์ทางการของผู้พัฒนา</li>
+                                        <li>• Microsoft Store / App Store</li>
+                                        <li>• เว็บไซต์ที่เชื่อถือได้ เช่น CNET, Softonic</li>
+                                        <li>• หลีกเลี่ยงเว็บไซต์ที่น่าสงสัย</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "ควรติดตั้งไดฟ์เวอร์ใดก่อนเป็นอันดับแรก?",
+                        options: ["Graphics Driver", "Audio Driver", "Chipset Driver", "Network Driver"],
+                        correct: 2
+                    },
+                    {
+                        question: "แหล่งดาวน์โหลดไดฟ์เวอร์ที่ปลอดภัยที่สุดคือ?",
+                        options: ["เว็บไซต์ผู้ผลิต", "เว็บไซต์ดาวน์โหลดทั่วไป", "เพื่อนแนะนำ", "ร้านคอมพิวเตอร์"],
+                        correct: 0
+                    },
+                    {
+                        question: "ก่อนติดตั้งระบบปฏิบัติการใหม่ ควรทำอะไรก่อน?",
+                        options: ["ติดตั้งโปรแกรม", "สำรองข้อมูล", "อัพเดทไดฟ์เวอร์", "ทำความสะอาดเครื่อง"],
+                        correct: 1
+                    },
+                    {
+                        question: "Windows Update มีความสำคัญอย่างไร?",
+                        options: ["ทำให้เครื่องช้าลง", "เพิ่มความปลอดภัย", "ใช้พื้นที่มาก", "ไม่จำเป็น"],
+                        correct: 1
+                    },
+                    {
+                        question: "การติดตั้งระบบปฏิบัติการ มีประมาณกี่ขั้นตอน",
+                        options: ["5", "10", "11", "15"],
+                        correct: 2
+                    }
+                ]
+            },
+            5: {
+                title: "อุปกรณ์ต่อพ่วง-หลักการทำงานและวิธีเชื่อมต่อ",
+                subtitle: "บทที่ 5",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-teal-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-teal-800 mb-4">🔌 ประเภทของอุปกรณ์ต่อพ่วง</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-teal-500">
+                                    <h4 class="font-semibold text-teal-700 mb-2">อุปกรณ์ Input</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Keyboard (คีย์บอร์ด)</li>
+                                        <li>• Mouse (เมาส์)</li>
+                                        <li>• Touchpad (แทชแพด)</li>
+                                        <li>• Microphone (ไมโครโฟน)</li>
+                                        <li>• Webcam (เว็บแคม)</li>
+                                        <li>• Scanner (สแกนเนอร์)</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700 mb-2">อุปกรณ์ Output</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• Monitor (จอภาพ)</li>
+                                        <li>• Printer (เครื่องพิมพ์)</li>
+                                        <li>• Speaker (ลำโพง)</li>
+                                        <li>• Headphone (หูฟัง)</li>
+                                        <li>• Projector (โปรเจคเตอร์)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">🔗 ประเภทการเชื่อมต่อ</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-blue-700 mb-3">USB (Universal Serial Bus)</h4>
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                        <div class="text-center p-2 bg-blue-50 rounded">
+                                            <div class="font-semibold text-xs text-blue-700">USB 1.1</div>
+                                            <div class="text-xs text-gray-600">12 Mbps</div>
+                                        </div>
+                                        <div class="text-center p-2 bg-blue-50 rounded">
+                                            <div class="font-semibold text-xs text-blue-700">USB 2.0</div>
+                                            <div class="text-xs text-gray-600">480 Mbps</div>
+                                        </div>
+                                        <div class="text-center p-2 bg-blue-50 rounded">
+                                            <div class="font-semibold text-xs text-blue-700">USB 3.0</div>
+                                            <div class="text-xs text-gray-600">5 Gbps</div>
+                                        </div>
+                                        <div class="text-center p-2 bg-blue-50 rounded">
+                                            <div class="font-semibold text-xs text-blue-700">USB 3.1/3.2</div>
+                                            <div class="text-xs text-gray-600">10-20 Gbps</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-blue-700 mb-3">การเชื่อมต่อแบบอื่นๆ</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <div class="p-3 bg-gray-50 rounded">
+                                            <h5 class="font-semibold text-sm text-gray-700">Bluetooth</h5>
+                                            <p class="text-xs text-gray-600">ไร้สาย, ระยะใกล้</p>
+                                        </div>
+                                        <div class="p-3 bg-gray-50 rounded">
+                                            <h5 class="font-semibold text-sm text-gray-700">Wi-Fi</h5>
+                                            <p class="text-xs text-gray-600">ไร้สาย, ระยะไกล</p>
+                                        </div>
+                                        <div class="p-3 bg-gray-50 rounded">
+                                            <h5 class="font-semibold text-sm text-gray-700">Ethernet</h5>
+                                            <p class="text-xs text-gray-600">สายเคเบิล, เสถียร</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-green-800 mb-4">🖥️ การเชื่อมต่อจอภาพ</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">ประเภทพอร์ตจอภาพ</h4>
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                                            <span class="text-sm font-medium">HDMI</span>
+                                            <span class="text-xs text-gray-600">4K, Audio+Video</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                                            <span class="text-sm font-medium">DisplayPort</span>
+                                            <span class="text-xs text-gray-600">8K, High Refresh</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                                            <span class="text-sm font-medium">VGA</span>
+                                            <span class="text-xs text-gray-600">Analog, เก่า</span>
+                                        </div>
+                                        <div class="flex justify-between items-center p-2 bg-green-50 rounded">
+                                            <span class="text-sm font-medium">DVI</span>
+                                            <span class="text-xs text-gray-600">Digital, 1080p</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">การตั้งค่าจอภาพ</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• ความละเอียด (Resolution)</li>
+                                        <li>• อัตราการรีเฟรช (Refresh Rate)</li>
+                                        <li>• การจัดเรียงจอ (Multiple Displays)</li>
+                                        <li>• การปรับสี (Color Calibration)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "USB 3.0 มีความเร็วในการถ่ายโอนข้อมูลเท่าไร?",
+                        options: ["480 Mbps", "5 Gbps", "10 Gbps", "12 Mbps"],
+                        correct: 1
+                    },
+                    {
+                        question: "พอร์ตใดเหมาะสำหรับการเชื่อมต่อจอภาพ 4K?",
+                        options: ["VGA", "DVI", "HDMI", "Serial"],
+                        correct: 2
+                    },
+                    {
+                        question: "การเชื่อมต่อแบบใดเป็นการเชื่อต่อไร้สายระยะไกล?",
+                        options: ["InkEthernet", "Wi-Fi", "Bluetooth", "USB"],
+                        correct: 1
+                    },
+                    {
+                        question: "การเชื่อมต่อแบบใดไม่ต้องใช้สายเคเบิล?",
+                        options: ["USB", "HDMI", "Bluetooth", "Ethernet"],
+                        correct: 2
+                    },
+                    {
+                        question: "ข้อใดเป็นอุปกรณ์ Output?",
+                        options: ["Mouse", "Webcam", "Scanner", "Printer"],
+                        correct: 3
+                    }
+                ]
+            },
+            6: {
+                title: "การแก้ไขปัญหาคอมพิวเตอร์",
+                subtitle: "บทที่ 6",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-red-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-red-800 mb-4">🔍 หลักการวินิจฉัยปัญหา</h3>
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-semibold text-red-700 mb-3">ขั้นตอนการแก้ไขปัญหา</h4>
+                                <div class="space-y-3">
+                                    <div class="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
+                                        <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                                        <div>
+                                            <h5 class="font-semibold text-sm">ระบุปัญหา (Identify)</h5>
+                                            <p class="text-xs text-gray-600">สังเกตอาการและรวบรวมข้อมูล</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
+                                        <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                                        <div>
+                                            <h5 class="font-semibold text-sm">วิเคราะห์สาเหตุ (Analyze)</h5>
+                                            <p class="text-xs text-gray-600">หาสาเหตุที่เป็นไปได้</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
+                                        <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                                        <div>
+                                            <h5 class="font-semibold text-sm">ทดสอบแก้ไข (Test & Fix)</h5>
+                                            <p class="text-xs text-gray-600">ลองแก้ไขทีละขั้นตอน</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
+                                        <span class="bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                                        <div>
+                                            <h5 class="font-semibold text-sm">ยืนยันผล (Verify)</h5>
+                                            <p class="text-xs text-gray-600">ตรวจสอบว่าปัญหาหายไป</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">💻 ปัญหาฮาร์ดแวร์</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700 mb-2">เครื่องไม่เปิด</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">สาเหตุที่เป็นไปได้</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• Power Supply เสีย</li>
+                                                <li>• สายไฟหลวม</li>
+                                                <li>• Motherboard เสีย</li>
+                                                <li>• RAM เสีย</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">วิธีแก้ไข</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ตรวจสอบสายไฟ</li>
+                                                <li>• ทดสอบ PSU</li>
+                                                <li>• ถอด-ใส่ RAM ใหม่</li>
+                                                <li>• ตรวจสอบ Front Panel</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                    <h4 class="font-semibold text-green-700 mb-2">เครื่องร้อนเกินไป</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">สาเหตุ</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• พัดลมไม่ทำงาน</li>
+                                                <li>• Thermal Paste แห้ง</li>
+                                                <li>• ฝุ่นสะสม</li>
+                                                <li>• การระบายอากาศไม่ดี</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">วิธีแก้ไข</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ทำความสะอาดพัดลม</li>
+                                                <li>• เปลี่ยน Thermal Paste</li>
+                                                <li>• เพิ่มพัดลม Case</li>
+                                                <li>• ตรวจสอบ Airflow</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-purple-800 mb-4">🖥️ ปัญหาซอฟต์แวร์</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                                    <h4 class="font-semibold text-purple-700 mb-2">Windows ไม่สามารถ Boot ได้</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">สาเหตุ</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ไฟล์ระบบเสียหาย</li>
+                                                <li>• Hard Disk เสีย</li>
+                                                <li>• Virus/Malware</li>
+                                                <li>• การอัพเดทผิดพลาด</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">วิธีแก้ไข</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ใช้ System Restore</li>
+                                                <li>• รัน Startup Repair</li>
+                                                <li>• ใช้ Command Prompt</li>
+                                                <li>• ติดตั้ง Windows ใหม่</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
+                                    <h4 class="font-semibold text-yellow-700 mb-2">เครื่องทำงานช้า</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">สาเหตุ</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• RAM ไม่เพียงพอ</li>
+                                                <li>• Hard Disk เต็ม</li>
+                                                <li>• โปรแกรมเยอะเกินไป</li>
+                                                <li>• Virus/Malware</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">วิธีแก้ไข</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• เพิ่ม RAM</li>
+                                                <li>• ลบไฟล์ไม่จำเป็น</li>
+                                                <li>• ปิดโปรแกรม Startup</li>
+                                                <li>• สแกน Virus</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "ขั้นตอนแรกในการแก้ไขปัญหาคอมพิวเตอร์คืออะไร?",
+                        options: ["แก้ไขทันที", "ระบุปัญหา", "เปลี่ยนชิ้นส่วน", "ติดตั้งใหม่"],
+                        correct: 1
+                    },
+                    {
+                        question: "หากเครื่องคอมพิวเตอร์ไม่เปิด ควรตรวจสอบอะไรก่อน?",
+                        options: ["Hard Disk", "สายไฟ", "Monitor", "Keyboard"],
+                        correct: 1
+                    },
+                    {
+                        question: "เครื่องร้อนเกินไปสาเหตุมาจากอะไร?",
+                        options: ["RAM ไม่พอ", "พัดลมไม่ทำงาน", "Virus", "Keyboard เสีย"],
+                        correct: 1
+                    },
+                    {
+                        question: "ข้อใดเป็นสาเหตุที่ทำให้ Windows ไม่สามารถ Boot ได้?",
+                        options: ["ฝุ่นสะสม", "Hard Disk เสีย", "RAM ไม่พอ", "Thermal Paste แห้ง"],
+                        correct: 1
+                    },
+                    {
+                        question: "หากเครื่องทำงานช้า สาเหตุใดไม่น่าจะเป็น?",
+                        options: ["RAM ไม่พอ", "Hard Disk เต็ม", "Virus", "Monitor เสีย"],
+                        correct: 3
+                    }
+                ]
+            },
+            7: {
+                title: "การบำรุงรักษาคอมพิวเตอร์",
+                subtitle: "บทที่ 7",
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-pink-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-pink-800 mb-4">🧹 การบำรุงรักษาเชิงป้องกัน</h3>
+                            <div class="bg-white p-4 rounded-lg">
+                                <p class="text-gray-700 mb-4">
+                                    การบำรุงรักษาเชิงป้องกันเป็นการดูแลคอมพิวเตอร์อย่างสม่ำเสมอ เพื่อป้องกันปัญหาที่อาจเกิดขึ้นในอนาคต
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="text-center p-4 bg-pink-50 rounded-lg">
+                                        <div class="text-2xl mb-2">🛡️</div>
+                                        <h4 class="font-semibold text-pink-700">ป้องกันปัญหา</h4>
+                                        <p class="text-xs text-gray-600">ลดความเสี่ยงของการเสียหาย</p>
+                                    </div>
+                                    <div class="text-center p-4 bg-pink-50 rounded-lg">
+                                        <div class="text-2xl mb-2">⚡</div>
+                                        <h4 class="font-semibold text-pink-700">เพิ่มประสิทธิภาพ</h4>
+                                        <p class="text-xs text-gray-600">ทำให้เครื่องทำงานได้ดีขึ้น</p>
+                                    </div>
+                                    <div class="text-center p-4 bg-pink-50 rounded-lg">
+                                        <div class="text-2xl mb-2">💰</div>
+                                        <h4 class="font-semibold text-pink-700">ประหยัดค่าใช้จ่าย</h4>
+                                        <p class="text-xs text-gray-600">ลดค่าซ่อมแซมในอนาคต</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-blue-800 mb-4">🧽 การทำความสะอาดฮาร์ดแวร์</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h4 class="font-semibold text-blue-700 mb-2">การทำความสะอาดภายนอก</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">อุปกรณ์ที่ต้องการ</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ผ้าไมโครไฟเบอร์</li>
+                                                <li>• น้ำยาทำความสะอาด</li>
+                                                <li>• สำลี</li>
+                                                <li>• แปรงขนนุ่ม</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">วิธีการ</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ปิดเครื่องและถอดปลั๊ก</li>
+                                                <li>• เช็ดเคสด้วยผ้าชื้น</li>
+                                                <li>• ทำความสะอาดจอภาพ</li>
+                                                <li>• เช็ดคีย์บอร์ดและเมาส์</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                    <h4 class="font-semibold text-green-700 mb-2">การทำความสะอาดภายใน</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">เครื่องมือ</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• กระป๋องลมอัดแรงดัน</li>
+                                                <li>• แปรงขนนุ่ม</li>
+                                                <li>• เครื่องดูดฝุ่น</li>
+                                                <li>• ผ้าไมโครไฟเบอร์</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">ขั้นตอน</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• เปิดฝาข้าง Case</li>
+                                                <li>• เป่าฝุ่นออกจากพัดลม</li>
+                                                <li>• ทำความสะอาด Heat Sink</li>
+                                                <li>• เช็ดแผงวงจร</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-green-800 mb-4">💾 การบำรุงรักษาซอฟต์แวร์</h3>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">การอัพเดทระบบ</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">Windows Update</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ตรวจสอบอัพเดทเป็นประจำ</li>
+                                                <li>• ติดตั้ง Security Patch</li>
+                                                <li>• อัพเดท Feature Update</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">Driver Update</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• อัพเดทไดฟ์เวอร์การ์ดจอ</li>
+                                                <li>• อัพเดทไดฟ์เวอร์เสียง</li>
+                                                <li>• อัพเดทไดฟ์เวอร์เครือข่าย</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-700 mb-2">การจัดการพื้นที่เก็บข้อมูล</h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">Disk Cleanup</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• ลบไฟล์ชั่วคราว</li>
+                                                <li>• ล้าง Recycle Bin</li>
+                                                <li>• ลบไฟล์ระบบเก่า</li>
+                                                <li>• ลบไฟล์ไม่จำเป็น</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-semibold text-sm text-gray-700 mb-1">Defragmentation</h5>
+                                            <ul class="text-xs text-gray-600 space-y-1">
+                                                <li>• จัดเรียงไฟล์ใหม่</li>
+                                                <li>• เพิ่มความเร็วการเข้าถึง</li>
+                                                <li>• ทำเป็นประจำทุกเดือน</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-orange-800 mb-4">🔒 การรักษาความปลอดภัย</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-orange-700 mb-2">Antivirus & Security</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• ติดตั้งโปรแกรมป้องกันไวรัส</li>
+                                        <li>• อัพเดท Virus Definition</li>
+                                        <li>• สแกนระบบเป็นประจำ</li>
+                                        <li>• เปิดใช้ Windows Defender</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg">
+                                    <h4 class="font-semibold text-orange-700 mb-2">Backup & Recovery</h4>
+                                    <ul class="text-sm text-gray-600 space-y-1">
+                                        <li>• สำรองข้อมูลสำคัญ เป็นประจำ</li>
+                                        <li>• สร้าง System Restore Point</li>
+                                        <li>• ใช้ Cloud Storage</li>
+                                        <li>• ทดสอบการกู้คืนข้อมูล</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-6 rounded-xl">
+                            <h3 class="text-xl font-bold text-yellow-800 mb-4">📅 ตารางการบำรุงรักษา</h3>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-yellow-700 mb-2">รายสัปดาห์</h4>
+                                        <ul class="text-xs text-gray-600 space-y-1">
+                                            <li>☐ สแกนไวรัส</li>
+                                            <li>☐ ล้าง Recycle Bin</li>
+                                            <li>☐ อัพเดท Software</li>
+                                            <li>☐ ตรวจสอบพื้นที่ Hard Disk</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-yellow-700 mb-2">รายเดือน</h4>
+                                        <ul class="text-xs text-gray-600 space-y-1">
+                                            <li>☐ ทำความสะอาดภายนอก</li>
+                                            <li>☐ Disk Cleanup</li>
+                                            <li>☐ อัพเดทไดฟ์เวอร์</li>
+                                            <li>☐ สำรองข้อมูล</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-yellow-700 mb-2">รายปี</h4>
+                                        <ul class="text-xs text-gray-600 space-y-1">
+                                            <li>☐ ทำความสะอาดภายใน</li>
+                                            <li>☐ เปลี่ยน Thermal Paste</li>
+                                            <li>☐ ตรวจสอบ Hardware</li>
+                                            <li>☐ ติดตั้ง OS ใหม่</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        question: "การบำรุงรักษาเชิงป้องกันมีประโยชน์อย่างไร?",
+                        options: ["ทำให้เครื่องช้าลง", "ป้องกันปัญหาในอนาคต", "เพิ่มค่าใช้จ่าย", "ไม่มีประโยชน์"],
+                        correct: 1
+                    },
+                    {
+                        question: "ควรทำความสะอาดภายในเครื่องคอมพิวเตอร์บ่อยแค่ไหน?",
+                        options: ["ทุกวัน", "ทุกสัปดาห์", "ทุกเดือน", "ทุกปี"],
+                        correct: 3
+                    },
+                    {
+                        question: "เครื่องมือใดเหมาะสำหรับทำความสะอาดฝุ่นภายในเครื่อง?",
+                        options: ["น้ำ", "กระป๋องลมอัดแรงดัน", "ผงซักฟอก", "น้ำมัน"],
+                        correct: 1
+                    },
+                    {
+                        question: "Disk Cleanup ใช้สำหรับอะไร?",
+                        options: ["เพิ่มความเร็ว CPU", "ลบไฟล์ไม่จำเป็น", "อัพเดทไดฟ์เวอร์", "สแกนไวรัส"],
+                        correct: 1
+                    },
+                    {
+                        question: "ควรสำรองข้อมูลบ่อยแค่ไหน?",
+                        options: ["ไม่ต้องสำรอง", "เมื่อเครื่องเสีย", "เป็นประจำ", "เฉพาะไฟล์ใหม่"],
+                        correct: 2
+                    }
+                ]
+            }
+        };
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            updateOverallProgress();
+            updateChapterStatuses();
+        });
+
+        // Open chapter
+        function openChapter(chapterNum) {
+            currentChapter = chapterNum;
+            const chapter = chapters[chapterNum];
+            
+            document.getElementById('chapterTitle').textContent = chapter.title;
+            document.getElementById('chapterSubtitle').textContent = chapter.subtitle;
+            document.getElementById('chapterContent').innerHTML = chapter.content;
+            
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('chapterView').classList.remove('hidden');
+            
+            // Mark as read
+            if (!chapterProgress[chapterNum]) {
+                chapterProgress[chapterNum] = { read: true, quizCompleted: false, score: 0 };
+                localStorage.setItem('chapterProgress', JSON.stringify(chapterProgress));
+                updateChapterStatuses();
+                updateOverallProgress();
+            }
+            
+            updateReadingProgress();
+        }
+
+        // Close chapter
+        function closeChapter() {
+            document.getElementById('chapterView').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+        }
+
+        // Show quiz
+        function showQuiz() {
+            if (!currentChapter) return;
+            
+            currentQuestion = 0;
+            quizAnswers = [];
+            
+            document.getElementById('chapterView').classList.add('hidden');
+            document.getElementById('quizView').classList.remove('hidden');
+            
+            loadQuizQuestion();
+        }
+
+        // Close quiz
+        function closeQuiz() {
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('chapterView').classList.remove('hidden');
+        }
+
+        // Load quiz question
+        function loadQuizQuestion() {
+            const chapter = chapters[currentChapter];
+            const question = chapter.quiz[currentQuestion];
+            
+            document.getElementById('quizProgress').textContent = `${currentQuestion + 1}/5`;
+            
+            const quizContent = document.getElementById('quizContent');
+            quizContent.innerHTML = `
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                            คำถามที่ ${currentQuestion + 1}
+                        </h3>
+                        <p class="text-gray-700 mb-6">${question.question}</p>
+                        <div class="space-y-3">
+                            ${question.options.map((option, index) => `
+                                <button onclick="selectAnswer(${index})" 
+                                        class="quiz-option w-full text-left p-4 bg-gray-50 hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-blue-200 transition-all"
+                                        id="option${index}">
+                                    <span class="font-medium">${String.fromCharCode(65 + index)}.</span> ${option}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = currentQuestion === 4 ? 'ส่งคำตอบ' : 'ถัดไป →';
+        }
+
+        // Select answer
+        function selectAnswer(answerIndex) {
+            // Remove previous selection
+            for (let i = 0; i < 4; i++) {
+                const option = document.getElementById(`option${i}`);
+                option.classList.remove('bg-blue-100', 'border-blue-400');
+                option.classList.add('bg-gray-50', 'border-transparent');
+            }
+            
+            // Highlight selected answer
+            const selectedOption = document.getElementById(`option${answerIndex}`);
+            selectedOption.classList.remove('bg-gray-50', 'border-transparent');
+            selectedOption.classList.add('bg-blue-100', 'border-blue-400');
+            
+            quizAnswers[currentQuestion] = answerIndex;
+        }
+
+        // Previous question
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuizQuestion();
+                
+                // Restore previous answer if exists
+                if (quizAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectAnswer(quizAnswers[currentQuestion]);
+                    }, 100);
+                }
+            }
+        }
+
+        // Next question
+        function nextQuestion() {
+            if (quizAnswers[currentQuestion] === undefined) {
+                alert('กรุณาเลือกคำตอบก่อนดำเนินการต่อ');
+                return;
+            }
+            
+            if (currentQuestion < 4) {
+                currentQuestion++;
+                loadQuizQuestion();
+                
+                // Restore previous answer if exists
+                if (quizAnswers[currentQuestion] !== undefined) {
+                    setTimeout(() => {
+                        selectAnswer(quizAnswers[currentQuestion]);
+                    }, 100);
+                }
+            } else {
+                // Submit quiz
+                submitQuiz();
+            }
+        }
+
+        // Submit quiz
+        function submitQuiz() {
+            const chapter = chapters[currentChapter];
+            let score = 0;
+            
+            for (let i = 0; i < 5; i++) {
+                if (quizAnswers[i] === chapter.quiz[i].correct) {
+                    score++;
+                }
+            }
+            
+            // Save quiz result
+            chapterProgress[currentChapter].quizCompleted = true;
+            chapterProgress[currentChapter].score = score;
+            localStorage.setItem('chapterProgress', JSON.stringify(chapterProgress));
+            
+            // Show result
+            showQuizResult(score);
+            
+            // Update UI
+            updateChapterStatuses();
+            updateOverallProgress();
+        }
+
+        // Show quiz result
+        function showQuizResult(score) {
+            const percentage = (score / 5) * 100;
+            let icon, title, message;
+            
+            if (percentage >= 80) {
+                icon = '🎉';
+                title = 'ยอดเยี่ยม!';
+                message = `คุณทำคะแนนได้ ${score}/5 คะแนน (${percentage}%)`;
+            } else if (percentage >= 60) {
+                icon = '👍';
+                title = 'ดีมาก!';
+                message = `คุณทำคะแนนได้ ${score}/5 คะแนน (${percentage}%)`;
+            } else {
+                icon = '📚';
+                title = 'ลองใหม่อีกครั้ง';
+                message = `คุณทำคะแนนได้ ${score}/5 คะแนน (${percentage}%) ควรทบทวนเนื้อหาอีกครั้ง`;
+            }
+            
+            document.getElementById('resultIcon').textContent = icon;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultMessage').textContent = message;
+            
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('quizResultModal').classList.remove('hidden');
+        }
+
+        // Close quiz result
+        function closeQuizResult() {
+            document.getElementById('quizResultModal').classList.add('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+        }
+
+        // Retake quiz
+        function retakeQuiz() {
+            document.getElementById('quizResultModal').classList.add('hidden');
+            showQuiz();
+        }
+
+        // Update chapter statuses
+        function updateChapterStatuses() {
+            for (let i = 1; i <= 7; i++) {
+                const progress = chapterProgress[i];
+                const statusElement = document.getElementById(`chapter${i}Status`);
+                const progressBar = document.getElementById(`chapter${i}Progress`);
+                
+                if (progress) {
+                    if (progress.quizCompleted) {
+                        statusElement.textContent = '✅';
+                        progressBar.style.width = '100%';
+                    } else if (progress.read) {
+                        statusElement.textContent = '📖';
+                        progressBar.style.width = '50%';
+                    }
+                } else {
+                    statusElement.textContent = '📖';
+                    progressBar.style.width = '0%';
+                }
+            }
+        }
+
+        // Update overall progress
+        function updateOverallProgress() {
+            let totalProgress = 0;
+            let completedChapters = 0;
+            
+            for (let i = 1; i <= 7; i++) {
+                const progress = chapterProgress[i];
+                if (progress) {
+                    if (progress.quizCompleted) {
+                        totalProgress += 100;
+                        completedChapters++;
+                    } else if (progress.read) {
+                        totalProgress += 50;
+                    }
+                }
+            }
+            
+            const overallPercentage = Math.round(totalProgress / 7);
+            document.getElementById('overallProgress').textContent = `${overallPercentage}%`;
+            document.getElementById('overallProgressBar').style.width = `${overallPercentage}%`;
+        }
+
+        // Update reading progress
+        function updateReadingProgress() {
+            document.getElementById('readingProgress').textContent = '100%';
+        }
+
+        // Show progress modal
+        function showProgress() {
+            let progressHTML = '<div class="space-y-4">';
+            
+            for (let i = 1; i <= 7; i++) {
+                const progress = chapterProgress[i];
+                const chapter = chapters[i];
+                let status = 'ยังไม่เริ่ม';
+                let statusColor = 'text-gray-500';
+                let progressWidth = '0%';
+                
+                if (progress) {
+                    if (progress.quizCompleted) {
+                        status = `เสร็จสิ้น (${progress.score}/5 คะแนน)`;
+                        statusColor = 'text-green-600';
+                        progressWidth = '100%';
+                    } else if (progress.read) {
+                        status = 'อ่านแล้ว';
+                        statusColor = 'text-blue-600';
+                        progressWidth = '50%';
+                    }
+                }
+                
+                progressHTML += `
+                    <div class="border-b pb-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="font-medium text-sm">บทที่ ${i}</h4>
+                            <span class="text-xs ${statusColor}">${status}</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full transition-all duration-500" style="width: ${progressWidth}"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            progressHTML += '</div>';
+            document.getElementById('progressDetails').innerHTML = progressHTML;
+            document.getElementById('progressModal').classList.remove('hidden');
+        }
+
+        // Close progress modal
+        function closeProgress() {
+            document.getElementById('progressModal').classList.add('hidden');
+        }
+
+        // Toggle bookmark
+        function toggleBookmark() {
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            // Simple bookmark toggle animation
+            bookmarkBtn.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                bookmarkBtn.style.transform = 'scale(1)';
+            }, 150);
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97e7cb2b83257328',t:'MTc1Nzc2ODA3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
